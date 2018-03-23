@@ -495,6 +495,9 @@ class Zend_Layout_LayoutTest extends PHPUnit\Framework\TestCase
         $this->assertNull(Zend_Layout::getMvcInstance());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testMinimalViewObjectWorks()
     {
         require_once dirname(__FILE__) . '/_files/MinimalCustomView.php';
