@@ -100,7 +100,6 @@ class Zend_Layout_LayoutTest extends PHPUnit\Framework\TestCase
     {
         $layout = new Zend_Layout();
 
-        require_once 'Zend/Config.php';
         $config = new Zend_Config(array(
             'layout'           => 'foo',
             'contentKey'       => 'foo',
@@ -121,7 +120,6 @@ class Zend_Layout_LayoutTest extends PHPUnit\Framework\TestCase
     {
         $layout = new Zend_Layout();
 
-        require_once 'Zend/Config.php';
         $config = new Zend_Config(array(
             'layout'           => 'foo',
             'contentKey'       => 'foo',
