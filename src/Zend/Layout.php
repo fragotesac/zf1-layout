@@ -305,7 +305,7 @@ class Zend_Layout
     /**
      * Initialize placeholder container for layout vars
      *
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return Zend_View_Helper_Placeholder_Container_Abstract
      */
     protected function _initVarContainer()
     {
@@ -556,6 +556,7 @@ class Zend_Layout
     public function getView()
     {
         if (null === $this->_view) {
+            /** @var Zend_Controller_Action_Helper_ViewRenderer $viewRenderer */
             $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
             if (null === $viewRenderer->view) {
                 $viewRenderer->initView();

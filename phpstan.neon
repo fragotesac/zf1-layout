@@ -1,2 +1,7 @@
 parameters:
     ignoreErrors:
+        - '#Access to an undefined property Zend_Layout::\$content\.#'
+        - '#Call to an undefined method Zend_View_Interface::addScriptPath\(\)\.#'
+        - '#Casting to string something that.s already string\.#'
+        # This null check isn't necessary, as it'll never come back null
+        - '#Strict comparison using !== between null and Zend_Filter_Inflector will always evaluate to true\.#'
