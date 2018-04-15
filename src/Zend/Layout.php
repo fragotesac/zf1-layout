@@ -83,7 +83,7 @@ class Zend_Layout
      */
     protected $_viewScriptPath = null;
 
-    protected $_viewBasePath = null;
+    protected $_viewBasePath   = null;
     protected $_viewBasePrefix = 'Layout_View';
 
     /**
@@ -204,9 +204,9 @@ class Zend_Layout
     public static function resetMvcInstance()
     {
         if (null !== self::$_mvcInstance) {
-            $layout = self::$_mvcInstance;
+            $layout      = self::$_mvcInstance;
             $pluginClass = $layout->getPluginClass();
-            $front = Zend_Controller_Front::getInstance();
+            $front       = Zend_Controller_Front::getInstance();
             if ($front->hasPlugin($pluginClass)) {
                 $front->unregisterPlugin($pluginClass);
             }
@@ -261,7 +261,7 @@ class Zend_Layout
     protected function _initPlugin()
     {
         $pluginClass = $this->getPluginClass();
-        $front = Zend_Controller_Front::getInstance();
+        $front       = Zend_Controller_Front::getInstance();
         if (!$front->hasPlugin($pluginClass)) {
             if (!class_exists($pluginClass)) {
                 Zend_Loader::loadClass($pluginClass);
@@ -379,7 +379,7 @@ class Zend_Layout
 
     public function setViewBasePath($path, $prefix = 'Layout_View')
     {
-        $this->_viewBasePath = $path;
+        $this->_viewBasePath   = $path;
         $this->_viewBasePrefix = $prefix;
         return $this;
     }
@@ -735,7 +735,7 @@ class Zend_Layout
     public function assign($spec, $value = null)
     {
         if (is_array($spec)) {
-            $orig = $this->_container->getArrayCopy();
+            $orig   = $this->_container->getArrayCopy();
             $merged = array_merge($orig, $spec);
             $this->_container->exchangeArray($merged);
             return $this;
@@ -767,8 +767,7 @@ class Zend_Layout
             $name = $this->getLayout();
         }
 
-        if ($this->inflectorEnabled() && (null !== ($inflector = $this->getInflector())))
-        {
+        if ($this->inflectorEnabled() && (null !== ($inflector = $this->getInflector()))) {
             $name = $this->_inflector->filter(array('script' => $name));
         }
 

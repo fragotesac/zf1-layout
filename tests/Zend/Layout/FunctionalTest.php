@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+if (defined('TESTS_ZEND_LAYOUT_ZF1_FULL_SUITE') && TESTS_ZEND_LAYOUT_ZF1_FULL_SUITE === true) {
 
 /**
  * @category   Zend
@@ -29,40 +30,40 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Layout
  */
-class Zend_Layout_FunctionalTest extends Zend_Test_PHPUnit_ControllerTestCase
-{
-    public function setUp()
+    class Zend_Layout_FunctionalTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
-        $this->bootstrap = array($this, 'appBootstrap');
-        parent::setUp();
-    }
+        public function setUp()
+        {
+            $this->bootstrap = array($this, 'appBootstrap');
+            parent::setUp();
+        }
 
-    public function appBootstrap()
-    {
-        $this->frontController->setControllerDirectory(dirname(__FILE__) . '/_files/functional-test-app/controllers/');
+        public function appBootstrap()
+        {
+            $this->frontController->setControllerDirectory(dirname(__FILE__) . '/_files/functional-test-app/controllers/');
 
-        // create an instance of the ErrorHandler so we can make sure it will point to our specially named ErrorController
-        $plugin = new Zend_Controller_Plugin_ErrorHandler();
-        $plugin->setErrorHandlerController('zend-layout-functional-test-error')
+            // create an instance of the ErrorHandler so we can make sure it will point to our specially named ErrorController
+            $plugin = new Zend_Controller_Plugin_ErrorHandler();
+            $plugin->setErrorHandlerController('zend-layout-functional-test-error')
                ->setErrorHandlerAction('error');
-        $this->frontController->registerPlugin($plugin, 100);
+            $this->frontController->registerPlugin($plugin, 100);
 
-        Zend_Layout::startMvc(dirname(__FILE__) . '/_files/functional-test-app/layouts/');
+            Zend_Layout::startMvc(dirname(__FILE__) . '/_files/functional-test-app/layouts/');
+        }
+
+        public function testMissingViewScriptDoesNotDoubleRender()
+        {
+            // go to the test controller for this funcitonal test
+            $this->dispatch('/zend-layout-functional-test-test/missing-view-script');
+            $this->assertEquals(trim($this->response->getBody()), "[DEFAULT_LAYOUT_START]\n(ErrorController::errorAction output)[DEFAULT_LAYOUT_END]");
+        }
+
+        public function testMissingViewScriptDoesDoubleRender()
+        {
+            Zend_Controller_Action_HelperBroker::getStack()->offsetSet(-91, new Zend_Controller_Action_Helper_ViewRenderer());
+            // go to the test controller for this funcitonal test
+            $this->dispatch('/zend-layout-functional-test-test/missing-view-script');
+            $this->assertEquals(trim($this->response->getBody()), "[DEFAULT_LAYOUT_START]\n[DEFAULT_LAYOUT_START]\n[DEFAULT_LAYOUT_END]\n(ErrorController::errorAction output)[DEFAULT_LAYOUT_END]");
+        }
     }
-
-    public function testMissingViewScriptDoesNotDoubleRender()
-    {
-        // go to the test controller for this funcitonal test
-        $this->dispatch('/zend-layout-functional-test-test/missing-view-script');
-        $this->assertEquals(trim($this->response->getBody()), "[DEFAULT_LAYOUT_START]\n(ErrorController::errorAction output)[DEFAULT_LAYOUT_END]");
-    }
-
-    public function testMissingViewScriptDoesDoubleRender()
-    {
-        Zend_Controller_Action_HelperBroker::getStack()->offsetSet(-91, new Zend_Controller_Action_Helper_ViewRenderer());
-        // go to the test controller for this funcitonal test
-        $this->dispatch('/zend-layout-functional-test-test/missing-view-script');
-        $this->assertEquals(trim($this->response->getBody()), "[DEFAULT_LAYOUT_START]\n[DEFAULT_LAYOUT_START]\n[DEFAULT_LAYOUT_END]\n(ErrorController::errorAction output)[DEFAULT_LAYOUT_END]");
-    }
-
 }
