@@ -65,6 +65,7 @@ class Zend_Layout_Controller_Action_Helper_Layout extends Zend_Controller_Action
             $pluginClass = $layout->getPluginClass();
             $front       = $this->getFrontController();
             if ($front->hasPlugin($pluginClass)) {
+                /** @var Zend_Layout_Controller_Plugin_Layout $plugin */
                 $plugin = $front->getPlugin($pluginClass);
                 $plugin->setLayoutActionHelper($this);
             }
