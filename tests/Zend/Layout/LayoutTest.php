@@ -216,7 +216,7 @@ class Zend_Layout_LayoutTest extends PHPUnit\Framework\TestCase
     {
         $layout = new Zend_Layout();
         $view   = $layout->getView();
-        $this->assertTrue($view instanceof Zend_View_Interface);
+        $this->assertInstanceOf(Zend_View_Interface::class, $view);
     }
 
     /**
@@ -290,7 +290,7 @@ class Zend_Layout_LayoutTest extends PHPUnit\Framework\TestCase
         $layout = Zend_Layout::startMvc(array('helperClass' => 'Zend_Layout_LayoutTest_Controller_Action_Helper_Layout'));
         $this->assertTrue(Zend_Controller_Action_HelperBroker::hasHelper('layout'));
         $helper = Zend_Controller_Action_HelperBroker::getStaticHelper('layout');
-        $this->assertTrue($helper instanceof Zend_Layout_LayoutTest_Controller_Action_Helper_Layout);
+        $this->assertInstanceOf(Zend_Layout_LayoutTest_Controller_Action_Helper_Layout::class, $helper);
     }
 
     /**

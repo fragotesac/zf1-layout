@@ -72,7 +72,7 @@ class Zend_Layout_HelperTest extends PHPUnit\Framework\TestCase
     {
         $helper = new Zend_Layout_Controller_Action_Helper_Layout();
         $layout = $helper->getLayoutInstance();
-        $this->assertTrue($layout instanceof Zend_Layout);
+        $this->assertInstanceOf(Zend_Layout::class, $layout);
     }
 
     public function testGetLayoutInstancePullsMvcLayoutInstance()
